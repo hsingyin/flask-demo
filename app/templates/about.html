@@ -1,0 +1,22 @@
+<!-- extend from base layout -->
+{% extends "base.html" %}
+
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static',filename='css/index.css')}}">
+{% endblock %}
+
+{% block page_content %}
+<!-- 巨幕 -->
+{% block jumbotron %}
+<div class="container">
+        <!-- Main component for a primary marketing message or call to action -->
+        <div class="jumbotron">
+          <h1>DEMO</h1>
+          
+          <p>本站仅供学习交流使用。</p>
+          
+        </div>
+</div> 
+{% endblock %}
+{% endblock %}

@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% block title %}上传文件{% endblock %}
+<!-- css -->
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static',filename='css/index.css')}}">
+<link rel="stylesheet" href="{{ url_for('static',filename='css/fileinput.min.css')}}">
+{% endblock %}
+<!-- page-content -->
+{% block page_content %}
+<div class="container">
+    <div class="form-group">
+
+            <div class="page-header" style="margin-top: 0;">
+                    <h1>上传文件 <small>我们将进行垃圾短信筛选</small></h1>
+            </div>
+            <div class="alert alert-warning" role="alert">
+                    <p>请不要上传超过1GB的文件</p>
+            </div>
+            
+                <label for="media">选择你要上传的文件</label>
+                <p class="help-block">支持.csv .txt 格式文件</p>
+                <form method="post" role="form" enctype="multipart/form-data">
+                    <input id="media" name="media" multiple type="file" class="file-loading">
+                </form>            
+    </div>
+   
+    <div class="progress" style="display: none;">
+        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+            0%
+        </div>
+    </div>
+    <div class="next" style="display: none;">
+        <div class="row">
+                <a class="btn btn-lg btn-success col-md-2 col-md-offset-5" href="/show">下一步</a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script type="text/javascript">
+    $('form').on('submit', function (event) {
+        // 显示进度条
+        $('.progress').css('display', 'block');
+        // 阻止元素发生默认的行为，此处用来阻止对表单的提交
+        event.preventDefault();
+        var formData = new FormData(this);
+        // jQuery Ajax 上传文件，关键在于设置：processData 和 contentType
+        $.ajax({
+            xhr: function () {
+                var xhr = new XMLHttpRequest();
+                xhr.upload.addEventListener('progress', function (e) {
+                    if (e.lengthComputable) {
+                        var percent = Math.round(e.loaded * 100 / e.total);
+                        $('.progress-bar').attr('aria-valuenow', percent).css('width', percent + '%').text(percent + '%');
+                    }
+                });
+                return xhr;
+            },
+            type: 'POST',
+            url: '/upload',
+            cache: false,
+            data: formData,
+            // 告诉 jQuery 不要去处理发送的数据
+            processData: false,
+            // 告诉 jQuery 不要去设置 Content-Type 请求头
+            // 因为这里是由 <form> 表单构造的 FormData 对象，且已经声明了属性 enctype="multipart/form-data"，所以设置为 false
+            contentType: false
+        }).done(
+            setTimeout(function (res) {
+                alert('上传成功!');
+                $('.progress').css('display', 'none');
+                $('.next').css('display', 'block');
+            },1300)
+            
+        );
+        // ).fail(
+        //     setTimeout(function (res) {
+        //         alert('上传失败!');
+        //         $('.progress').css('display', 'none');
+        //     },1300)
+
+        // );
+    });
+    
+</script>
+<script src="{{ url_for('static',filename='js/fileinput.min.js') }}"></script>
+<script src="{{ url_for('static',filename='js/zh.js') }}"></script>
+<script>
+$(document).on('ready', function() {
+    $("#media").fileinput({
+        browseLabel: '选择想要上传的文件',
+        language: 'zh',
+        allowedFileExtensions:  ['csv', 'png','txt','mp3'],
+        maxFileCount: 10,
+        uploadAsync: true,
+        initialPreviewShowDelete: true
+    });
+     
+   
+    
+});
+console.log("查看回调函数")
+$('#media').on('fileuploaded', function(event, data, previewId, index) {
+    // var form = data.form, files = data.files, extra = data.extra,
+    //     response = data.response, reader = data.reader;
+    console.log('fileuploaded');
+});
+$('#media').on('filebatchpreupload', function(event, data) {
+    console.log('filebatchpreupload');
+});
+$('#media').on('filebatchuploadsuccess', function(event, data) {
+    console.log('filebatchuploadsuccess');
+});
+$('#media').on('filebatchuploadcomplete', function(event, files, extra) {
+    console.log('filebatchuploadcomplete');
+});
+$('#media').on('fileunlock', function(event, filestack, extraData) {
+    var fstack = filestack.filter(function(n){ return n != undefined });
+    console.log('Files selected - ' + fstack.length);
+});
+$('#media').on('filezoomshow', function(event, params) {
+    console.log('File zoom show ', params.sourceEvent, params.previewId, params.modal);
+});
+</script>
+{% endblock %}

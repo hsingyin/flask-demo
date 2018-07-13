@@ -1,0 +1,54 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}Python垃圾短信过滤{% endblock %}
+{% block meta %}
+{{ super() }}
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+{% endblock %}
+{% block head %}
+{{ super() }}
+<link rel="shortcut icon" href="../static/img/favicon.ico"/>
+<link rel="bookmark" href="../static/img/favicon.ico"/>
+{% endblock %}
+<!-- body -->
+{% block body %}
+<!-- 导航栏 -->
+{% block navbar %}
+<div class="container">
+        <div class="header clearfix" style="width: 730px;">
+          <nav>
+            <ul id="navbar" class="nav nav-pills pull-right">
+              <li role="presentation"><a href="/">首页</a></li>
+              <li role="presentation"><a href="/about">关于</a></li>
+              <li role="presentation"><a href="/contact">联系我们</a></li>
+            </ul>
+          </nav>
+          <h3 class="text-muted">Python垃圾短信过滤</h3>
+        </div>
+
+{% endblock %}
+<!-- 主体内容 content-->
+{% block content %}
+<div class="container">
+    
+    
+    <!-- 网页内容page-content -->
+    {% block page_content %}{% endblock %}
+</div>
+{% endblock %}
+
+{% block footer %}
+<footer class="footer" style="margin-top: 20px;">
+    <p><a href='http://www.hsingyin.site'>@hsingyin</a></p>
+</footer>
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<!-- <script type="text/javascript" src="../static/js/active.js"></script> -->
+<!-- <script type="text/javascript" src="../static/js/bootstrap.min.js"></script> -->
+{% endblock %}
+
+
+{% endblock %}

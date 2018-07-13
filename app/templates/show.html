@@ -1,0 +1,25 @@
+<!-- extend from base layout -->
+{% extends "base.html" %}
+
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static',filename='css/index.css')}}">
+{% endblock %}
+
+{% block page_content %}
+<!-- 巨幕 -->
+{% block jumbotron %}
+<div class="container">
+        <!-- Main component for a primary marketing message or call to action -->
+        <div class="jumbotron">
+            <h1>垃圾短信过滤结果<small></small></h1>
+            <h3>1表示正常短信 0表示垃圾短信</h3>
+            <h2>{{g.res}}</h2>
+          <p>
+            <a class="btn btn-lg btn-primary" href="{{url_for('index')}}" role="button">回到首页 &raquo;</a>
+          </p>
+        </div>
+</div> 
+{% endblock %}
+
+{% endblock %}

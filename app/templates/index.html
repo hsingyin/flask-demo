@@ -1,0 +1,42 @@
+<!-- extend from base layout -->
+{% extends "base.html" %}
+
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static',filename='css/index.css')}}">
+{% endblock %}
+
+{% block page_content %}
+<!-- 巨幕 -->
+{% block jumbotron %}
+<div class="container">
+        <!-- Main component for a primary marketing message or call to action -->
+        <div class="jumbotron">
+          <h1>Python垃圾短信过滤</h1>
+          <p>基于python的深度学习的自然语言处理Demo</p>
+          <p>
+            <a class="btn btn-lg btn-success" href="{{url_for('upload')}}" role="button">现在开始 &raquo;</a>
+          </p>
+        </div>
+</div> 
+{% endblock %}
+<div class="row marketing">
+  <div class="col-lg-6">
+    <h4><span class="glyphicon glyphicon-cloud-upload" aria-hidden="true"></span>&nbsp;&nbsp;极速上传</h4>
+    <p>基于Bootstrapinputfile插件，强大，安全</p>
+
+    <h4><span class="glyphicon glyphicon-console" aria-hidden="true"></span>&nbsp;&nbsp;可扩展性</h4>
+    <p>使用flask框架开发，轻松导入你的python模块</p>
+
+  </div>
+
+  <div class="col-lg-6">
+    <h4><span class="glyphicon glyphicon-random" aria-hidden="true"></span>&nbsp;&nbsp;多模型筛选</h4>
+    <p>使用word2vector、Gensim等词向量模型</p>
+
+    <h4><span class="glyphicon glyphicon-gift" aria-hidden="true"></span>&nbsp;&nbsp;开源免费</h4>
+    <p>欢迎访问<a href="https://github.com/hsingyin">GitHub项目仓库</a></p>
+
+  </div>
+</div>
+{% endblock %}
